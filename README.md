@@ -11,6 +11,17 @@ A client-server project to manage transmilenio buses.
 - [@Luis-Rodriguez](https://github.com)
 
 
+## Environment Variables
+
+To run the server, you will need to create the .env file in the server directory and add the following environment variables to your .env file
+
+`PORT`
+
+`HOST`
+
+`CLIENT_ORIGIN`
+
+
 ## Run Locally
 
 Clone the project
