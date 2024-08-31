@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+      <li class="nav-item">
+          <a routerLink="buses" routerLinkActive="active" class="nav-link">Todos los buses</a>
+      </li>
+      <li class="nav-item">
+          <a routerLink="create" routerLinkActive="active" class="nav-link">Registrar bus</a>
+      </li>
+  </ul>
+</nav>
+<h1 class="text-center">{{title}}</h1>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
