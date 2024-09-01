@@ -21,13 +21,19 @@ To run the server, you will need to create the .env file in the server directory
 
 `CLIENT_HOST`
 
+To run the client, you will need to create the .env file in the client directory and add the following environment variables to your .env file
+
+`SERVER_PORT`
+
+`SERVER_HOST`
+
 
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/HarDep/distribuidos-client-server-1
+  git clone https://github.com/HarDep/distribuidos-client-server-1.git
 ```
 
 Go to the server project directory
