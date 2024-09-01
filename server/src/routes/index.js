@@ -1,5 +1,5 @@
 import express from 'express';
-import buses from './buses.js';
+import buses from '../controllers/buses.js';
 
 const routes = express();
 

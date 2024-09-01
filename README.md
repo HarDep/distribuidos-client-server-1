@@ -19,7 +19,7 @@ To run the server, you will need to create the .env file in the server directory
 
 `HOST`
 
-`CLIENT_ORIGIN`
+`CLIENT_HOST`
 
 
 ## Run Locally

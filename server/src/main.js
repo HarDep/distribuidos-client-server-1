@@ -11,10 +11,10 @@ const port = process.env.PORT || 3200;
 
 const host = process.env.HOST || 'localhost';
 
-const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:4200';
+const clienthost = process.env.CLIENT_HOST || 'localhost';
 
 app.use(cors({
-    origin: clientOrigin
+    origin: `http://${clienthost}:4200`,
 }));
 
 app.use(express.json());
