@@ -8,6 +8,11 @@ let buses = [
         busPlate: 'BBBB-123',
         arriveDateTime: '2022-10-10T00:00:00.000Z',
         editedTimes: 2
+    },
+    {
+        busPlate: 'BVVB-223',
+        arriveDateTime: '2022-10-10T00:00:00.000Z',
+        editedTimes: 2
     }
 ];
 
@@ -29,11 +34,13 @@ export function saveBus(bus) {
 
 export function updateBus(bus) {
     const index = buses.findIndex(b => b.busPlate === bus.busPlate);
+    const busFound= getBusBybusPlate(bus.busPlate);
     const { busPlate, editedTimes } = bus;
+
     buses[index] = {
-        busPlate: busPlate,
+        busPlate: busFound.busPlate,
         arriveDateTime: bus.arriveDateTime,
-        editedTimes: editedTimes + 1
+        editedTimes: busFound.editedTimes + 1
     };
 }
 
