@@ -12,6 +12,7 @@ buses.get('/:busPlate', (req, res) => {
     var busFound= busServices.getBusBybusPlate(busPlate);
     if(!busFound){
         res.status(400).json({error : 'El bus no existe'});
+        return;
     }
     //obtener datos
     var busPlateFound = busFound.busPlate;
