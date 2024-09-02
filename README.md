@@ -8,7 +8,7 @@ A client-server project to manage transmilenio buses.
 
 - [@Harold-Alvarado](https://github.com/HarDep)
 - [@Sebastian-Mejia](https://github.com/Sebasmejia123)
-- [@Luis-Rodriguez](https://github.com)
+- [@Luis-Rodriguez](https://github.com/luismiguel44)
 
 
 ## Environment Variables
