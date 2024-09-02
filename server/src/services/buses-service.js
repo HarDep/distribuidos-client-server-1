@@ -39,7 +39,7 @@ export function updateBus(bus) {
 
     buses[index] = {
         busPlate: busFound.busPlate,
-        arriveDateTime: busFound.arriveDateTime,
+        arriveDateTime: bus.arriveDateTime,
         editedTimes: busFound.editedTimes + 1
     };
 }
