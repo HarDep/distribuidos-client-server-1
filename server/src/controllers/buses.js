@@ -5,16 +5,23 @@ const buses = express();
 
 buses.get('/:busPlate', (req, res) => {
     const { busPlate } = req.params;
-
+    if(!busPlate){
+        res.status(400).json({error : 'No se Admiten valores vacios'});
+    }
     //validar datos
-
+    var busFound= busServices.getBusBybusPlate(busPlate);
+    if(!busFound){
+        res.status(400).json({error : 'El bus no existe'});
+    }
     //obtener datos
-
+    var busPlateFound = busFound.busPlate;
+    var busArriveFound = busFound.arriveDateTime;
+    var busEditedTimesFound = busFound.editedTimes;
     //devolver
     res.status(200).json({
-        busPlate: busPlate,
-        arriveDateTime: '2022-10-10T00:00:00.000Z',
-        editedTimes: 0
+        busPlate: busPlateFound,
+        arriveDateTime: busArriveFound,
+        editedTimes: busEditedTimesFound
     });
 });
 
@@ -29,24 +36,31 @@ buses.get('/', (req, res) => {
 buses.post('/', (req, res) => {
     const { busPlate, arriveDateTime } = req.body;
 
-    //validar datos
-
-    //ejs validation and send error
-    if(!busPlate || !arriveDateTime) {
-        res.status(400).json({ message: 'The bus plate is required' });
-        return;
+    // Validar datos
+    if (!busPlate || !arriveDateTime) {
+        return res.status(400).json({ message: 'Bus plate and arrival time are required' });
     }
 
-    //guardar datos
+    // Verificar si el bus ya existe
+    if (busServices.existBus(busPlate)) {
+        return res.status(400).json({ message: 'The bus already exists' });
+    }
 
-    //devolver bus creado
-    res.status(201).json({
-        message : `Bus ${busPlate} created with arrive time ${arriveDateTime}`,
-        successful : true,
-        bus : {
-            busPlate : busPlate,
-            arriveDateTime : arriveDateTime,
-            editedTimes : 0
+    // Guardar datos
+    const newBus = {
+        busPlate,
+        arriveDateTime
+    };
+    busServices.saveBus(newBus);
+
+    // Devolver bus creado
+    return res.status(201).json({
+        message: `Bus ${busPlate} created with arrival time ${arriveDateTime}`,
+        successful: true,
+        bus: {
+            busPlate,
+            arriveDateTime,
+            editedTimes: 0
         }
     });
 });
