@@ -34,11 +34,13 @@ export function saveBus(bus) {
 
 export function updateBus(bus) {
     const index = buses.findIndex(b => b.busPlate === bus.busPlate);
+    const busFound= getBusBybusPlate(bus.busPlate);
     const { busPlate, editedTimes } = bus;
+
     buses[index] = {
-        busPlate: busPlate,
-        arriveDateTime: bus.arriveDateTime,
-        editedTimes: editedTimes + 1
+        busPlate: busFound.busPlate,
+        arriveDateTime: busFound.arriveDateTime,
+        editedTimes: busFound.editedTimes + 1
     };
 }
 
