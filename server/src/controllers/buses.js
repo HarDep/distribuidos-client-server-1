@@ -38,12 +38,14 @@ buses.post('/', (req, res) => {
 
     // Validar datos
     if (!busPlate || !arriveDateTime) {
-        return res.status(400).json({ message: 'Bus plate and arrival time are required' });
+         res.status(400).json({ message: 'Bus plate and arrival time are required' });
+         return;
     }
 
     // Verificar si el bus ya existe
     if (busServices.existBus(busPlate)) {
-        return res.status(400).json({ message: 'The bus already exists' });
+         res.status(400).json({ message: 'The bus already exists' });
+         return;
     }
 
     // Guardar datos
@@ -51,6 +53,7 @@ buses.post('/', (req, res) => {
         busPlate,
         arriveDateTime
     };
+
     busServices.saveBus(newBus);
   
     //devolver
@@ -58,7 +61,7 @@ buses.post('/', (req, res) => {
         busPlate: busPlate,
         arriveDateTime: arriveDateTime,
         editedTimes: 0
-        
+
     });
 
 });
