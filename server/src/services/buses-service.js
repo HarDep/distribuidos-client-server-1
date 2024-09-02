@@ -35,7 +35,6 @@ export function saveBus(bus) {
 export function updateBus(bus) {
     const index = buses.findIndex(b => b.busPlate === bus.busPlate);
     const busFound= getBusBybusPlate(bus.busPlate);
-    const { busPlate, editedTimes } = bus;
 
     buses[index] = {
         busPlate: busFound.busPlate,

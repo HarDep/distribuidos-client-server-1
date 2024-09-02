@@ -8,17 +8,17 @@ buses.get('/:busPlate', (req, res) => {
     if(!busPlate){
         res.status(400).json({error : 'No se Admiten valores vacios'});
     }
-    //validar datos
+    
     var busFound= busServices.getBusBybusPlate(busPlate);
     if(!busFound){
         res.status(400).json({error : 'El bus no existe'});
         return;
     }
-    //obtener datos
+    
     var busPlateFound = busFound.busPlate;
     var busArriveFound = busFound.arriveDateTime;
     var busEditedTimesFound = busFound.editedTimes;
-    //devolver
+    
     res.status(200).json({
         busPlate: busPlateFound,
         arriveDateTime: busArriveFound,
@@ -27,29 +27,24 @@ buses.get('/:busPlate', (req, res) => {
 });
 
 buses.get('/', (req, res) => {
-    //obtener datos - ejs
     let buses = busServices.getBuses();
 
-    //devolver
     res.status(200).json(buses);
 });
 
 buses.post('/', (req, res) => {
     const { busPlate, arriveDateTime } = req.body;
 
-    // Validar datos
     if (!busPlate || !arriveDateTime) {
-         res.status(400).json({ message: 'Bus plate and arrival time are required' });
+         res.status(400).json({ message: 'Placa y fecha de llegada son requeridos' });
          return;
     }
 
-    // Verificar si el bus ya existe
     if (busServices.existBus(busPlate)) {
-         res.status(400).json({ message: 'The bus already exists' });
+         res.status(400).json({ message: 'El bus ya existe' });
          return;
     }
 
-    // Guardar datos
     const newBus = {
         busPlate,
         arriveDateTime
@@ -57,58 +52,58 @@ buses.post('/', (req, res) => {
 
     busServices.saveBus(newBus);
   
-    //devolver
     res.status(200).json({
+        message: 'Bus creado',
+        successful: true,
+        bus: {
         busPlate: busPlate,
         arriveDateTime: arriveDateTime,
         editedTimes: 0
-
-    });
-
+    }});
 });
 
 buses.patch('/:busPlate', (req, res) => {
     const { busPlate } = req.params;
     const { arriveDateTime } = req.body;
 
-    //validar datos
     let exist = busServices.existBus(busPlate);
     if(!exist) {
         res.status(404).json({ message: 'El bus no existe' });
         return;
     }
 
-    //actualizar fecha de llegada y veces editado
     const newBus = {
         busPlate,
         arriveDateTime
     };
     busServices.updateBus(newBus);
-    //devolver bus actualizado
+    
     const busFound = busServices.getBusBybusPlate(busPlate);
     var busPlateFound = busFound.busPlate;
     var busArriveFound = busFound.arriveDateTime;
     var busEditedTimesFound = busFound.editedTimes;
-    //devolver
+    
     res.status(200).json({
+        message: 'Bus actualizado',
+        successful: true,
+        bus: {
         busPlate: busPlateFound,
         arriveDateTime: busArriveFound,
         editedTimes: busEditedTimesFound
-    });
+    }});
 });
 
 buses.delete('/:busPlate', (req, res) => {
     const { busPlate } = req.params;
 
-    //validar datos
     let exist = busServices.existBus(busPlate);
     if(!exist) {
         res.status(404).json({ message: 'El bus no existe' });
         return;
     }
-    //borrar datos
+    
     busServices.deleteBus(busPlate);
-    //devolver bus borrado
+    
     res.status(200).json({
         message : `Bus ${busPlate} deleted`,
         successful : true

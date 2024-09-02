@@ -35,7 +35,7 @@ export class BusesService {
   }
 
   updateBus(bus: Bus, busPlate: string) : Observable<BusResponse> {
-    return this.httpClient.put<BusResponse>(`${this.url}/${busPlate}`, bus);
+    return this.httpClient.patch<BusResponse>(`${this.url}/${busPlate}`, bus);
   }
 
   deleteBus(busPlate: string) : Observable<BusResponse> {
