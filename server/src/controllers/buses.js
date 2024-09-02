@@ -52,17 +52,15 @@ buses.post('/', (req, res) => {
         arriveDateTime
     };
     busServices.saveBus(newBus);
-
-    // Devolver bus creado
-    return res.status(201).json({
-        message: `Bus ${busPlate} created with arrival time ${arriveDateTime}`,
-        successful: true,
-        bus: {
-            busPlate,
-            arriveDateTime,
-            editedTimes: 0
-        }
+  
+    //devolver
+    res.status(200).json({
+        busPlate: busPlate,
+        arriveDateTime: arriveDateTime,
+        editedTimes: 0
+        
     });
+
 });
 
 buses.patch('/:busPlate', (req, res) => {
@@ -77,16 +75,21 @@ buses.patch('/:busPlate', (req, res) => {
     }
 
     //actualizar fecha de llegada y veces editado
-
+    const newBus = {
+        busPlate,
+        arriveDateTime
+    };
+    busServices.updateBus(newBus);
     //devolver bus actualizado
+    const busFound = busServices.getBusBybusPlate(busPlate);
+    var busPlateFound = busFound.busPlate;
+    var busArriveFound = busFound.arriveDateTime;
+    var busEditedTimesFound = busFound.editedTimes;
+    //devolver
     res.status(200).json({
-        message : `Bus ${busPlate} updated with arrive time ${arriveDateTime}`,
-        successful : true,
-        bus : {
-            busPlate : busPlate,
-            arriveDateTime : arriveDateTime,
-            editedTimes : 1
-        }
+        busPlate: busPlateFound,
+        arriveDateTime: busArriveFound,
+        editedTimes: busEditedTimesFound
     });
 });
 
@@ -94,9 +97,13 @@ buses.delete('/:busPlate', (req, res) => {
     const { busPlate } = req.params;
 
     //validar datos
-
+    let exist = busServices.existBus(busPlate);
+    if(!exist) {
+        res.status(404).json({ message: 'El bus no existe' });
+        return;
+    }
     //borrar datos
-
+    busServices.deleteBus(busPlate);
     //devolver bus borrado
     res.status(200).json({
         message : `Bus ${busPlate} deleted`,

@@ -8,6 +8,11 @@ let buses = [
         busPlate: 'BBBB-123',
         arriveDateTime: '2022-10-10T00:00:00.000Z',
         editedTimes: 2
+    },
+    {
+        busPlate: 'BVVB-223',
+        arriveDateTime: '2022-10-10T00:00:00.000Z',
+        editedTimes: 2
     }
 ];
 
