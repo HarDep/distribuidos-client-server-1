@@ -1,1 +1,17 @@
-<p>bus-info works!</p>
+<h3 class="text-center">Detalles de bus</h3>
+
+<div>
+    <div>
+        Placa: <b>{{bus.busPlate}}</b>
+    </div>
+    <br>
+    <div>
+        Fecha y hora de llegada: <b>{{formatingDate(bus.arriveDateTime)}}</b>
+    </div>
+    <br>
+    <div>
+        Veces editado: <b>{{bus.editedTimes}}</b>
+    </div>
+    <br>
+    <button routerLink="buses" routerLinkActive="active" type="button" class="btn btn-primary">Volver</button>
+</div>

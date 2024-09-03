@@ -26,8 +26,8 @@ export class BusesService {
     return this.httpClient.get<Bus[]>(this.url);
   }
 
-  getBus(busPlate: string) : Observable<Bus> {
-    return this.httpClient.get<Bus>(`${this.url}/${busPlate}`);
+  getBus(busPlate: string) : Observable<BusResponse> {
+    return this.httpClient.get<BusResponse>(`${this.url}/${busPlate}`);
   }
 
   createBus(bus: Bus) : Observable<BusResponse> {
