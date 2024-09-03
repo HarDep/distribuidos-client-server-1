@@ -6,12 +6,17 @@ const buses = express();
 buses.get('/:busPlate', (req, res) => {
     const { busPlate } = req.params;
     if(!busPlate){
-        res.status(400).json({error : 'No se Admiten valores vacios'});
+        res.status(400).json({error : 'No se Admiten valores vacios',
+            successful : false
+        });
+        return;
     }
     //validar datos
     var busFound= busServices.getBusBybusPlate(busPlate);
     if(!busFound){
-        res.status(400).json({error : 'El bus no existe'});
+        res.status(400).json({error : 'El bus no existe',
+            successful : false
+        });
         return;
     }
     //obtener datos
@@ -39,13 +44,17 @@ buses.post('/', (req, res) => {
 
     // Validar datos
     if (!busPlate || !arriveDateTime) {
-         res.status(400).json({ message: 'Bus plate and arrival time are required' });
+         res.status(400).json({ message: 'Se necesita la placa y el tiempo de llegada',
+            successful : false
+          });
          return;
     }
 
     // Verificar si el bus ya existe
     if (busServices.existBus(busPlate)) {
-         res.status(400).json({ message: 'The bus already exists' });
+         res.status(400).json({ message: 'The bus already exists', 
+            successful : false
+         });
          return;
     }
 
@@ -103,14 +112,16 @@ buses.delete('/:busPlate', (req, res) => {
     //validar datos
     let exist = busServices.existBus(busPlate);
     if(!exist) {
-        res.status(404).json({ message: 'El bus no existe' });
+        res.status(404).json({ message: 'El bus no existe', 
+            successful : false
+        });
         return;
     }
     //borrar datos
     busServices.deleteBus(busPlate);
     //devolver bus borrado
     res.status(200).json({
-        message : `Bus ${busPlate} deleted`,
+        message : `El bus con placa:  ${busPlate} ha sido eliminado`,
         successful : true
     });
 });
