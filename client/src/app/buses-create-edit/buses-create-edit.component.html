@@ -1,7 +1,7 @@
 
   <div class="col-md-6 offset-md-3">
     <h3 class="text-center">{{title}} de buses de trasmilenio</h3>
-    <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #busForm="ngForm">
         <div class="form-group">
             <label>Placa: </label>
             <input type="text" class="form-control" id="busPlate" [(ngModel)]="bus.busPlate" name="busPlate" required
@@ -29,8 +29,25 @@
         </div>
         <br>
 
-        <button class="btn btn-success" [disabled]="!employeeForm.form.valid">Guardar</button>
+        <button class="btn btn-success" [disabled]="!busForm.form.valid"
+        data-bs-toggle="modal" data-bs-target="#formModal">Guardar</button>
     </form>
+</div>
+
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModalLabel">{{title}} bus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">{{message}}</div>
+        <div class="modal-footer justify-content-center">
+          <button routerLink="buses" routerLinkActive="active" type="button" class="btn btn-primary" 
+          data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
 </div>
   
 
