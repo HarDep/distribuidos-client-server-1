@@ -14,7 +14,7 @@ buses.get('/:busPlate', (req, res) => {
     //validar datos
     var busFound= busServices.getBusBybusPlate(busPlate);
     if(!busFound){
-        res.status(400).json({error : `El bus con placa ${busPlate} no existe`,
+        res.status(400).json({message : `El bus con placa ${busPlate} no existe`,
             successful : false
         });
         return;
@@ -25,10 +25,14 @@ buses.get('/:busPlate', (req, res) => {
     var busEditedTimesFound = busFound.editedTimes;
     //devolver
     res.status(200).json({
+        message : `El bus con placa ${busPlate} no existe`,
+            successful : false,
+            bus:{
         busPlate: busPlateFound,
         arriveDateTime: busArriveFound,
         editedTimes: busEditedTimesFound
-    });
+        
+    }});
 });
 
 buses.get('/', (req, res) => {
