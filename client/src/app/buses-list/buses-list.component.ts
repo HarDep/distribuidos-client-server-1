@@ -2,8 +2,7 @@ import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { BusesService } from '../buses.service';
 import { Bus } from '../bus';
 import { formatDate, NgFor } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { subscribe } from 'diagnostics_channel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buses-list',

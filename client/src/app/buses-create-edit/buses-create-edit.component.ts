@@ -1,22 +1,21 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importa CommonModule para los pipes como 'date'
-import { FormsModule } from '@angular/forms'; // Importa FormsModule para usar ngModel
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { BusesService } from '../buses.service';
 import { Bus } from '../bus';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
-import { error } from 'console';
 
 @Component({
   selector: 'app-buses-create-edit',
-  standalone: true,   // Indica que es un componente independiente
+  standalone: true,   
 
-  imports: [CommonModule, FormsModule, RouterLink],  // Importa CommonModule y FormsModule
+  imports: [CommonModule, FormsModule, RouterLink],  
   templateUrl: './buses-create-edit.component.html',
   styleUrls: ['./buses-create-edit.component.css']
 })
 export class BusesCreateEditComponent {
-  bus: Bus = new Bus();  // Nuevo bus para registrar
+  bus: Bus = new Bus();  
   
   title:string = ''
   busPlate:string = ''

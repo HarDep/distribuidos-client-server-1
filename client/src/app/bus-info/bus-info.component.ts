@@ -13,7 +13,7 @@ import { formatDate } from '@angular/common';
   styleUrl: './bus-info.component.css'
 })
 export class BusInfoComponent {
-  bus: Bus = new Bus();  // Instancia de la clase Bus
+  bus: Bus = new Bus();
   busPlate:string = ''
 
   formatingDate: Function = (date:Date) => formatDate(date, "dd/MM/YYYY hh:mm a", this.locale);
