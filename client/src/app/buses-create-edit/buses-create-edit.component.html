@@ -1,1 +1,37 @@
-<p>buses-create-edit works!</p>
+
+  <div class="col-md-6 offset-md-3">
+    <h3 class="text-center">{{title}} de buses de trasmilenio</h3>
+    <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+        <div class="form-group">
+            <label>Placa: </label>
+            <input type="text" class="form-control" id="busPlate" [(ngModel)]="bus.busPlate" name="busPlate" required
+                minlength="7" maxlength="10" pattern="^[A-Z0-9-]{0,10}$" placeholder="Digite la placa del bus" #busPlate="ngModel">
+            <div class="alert alert-danger" *ngIf="busPlate.invalid && (busPlate.dirty || busPlate.touched)">
+                <div *ngIf="busPlate.errors?.['required']">Digite el numero de placa por favor</div>
+                <div *ngIf="busPlate.errors?.['minlength']">
+                    La placa tiene que contener como minimo 7 caracteres</div>
+                <div *ngIf="busPlate.errors?.['maxlength']">
+                    La placa tiene que contener como maximo 10 caracteres</div>
+                <div *ngIf="busPlate.errors?.['pattern']">
+                    Hay caracteres no validos</div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label>fecha y hora: </label>
+            <input type="datetime-local" class="form-control" id="date" [(ngModel)]="bus.arriveDateTime" name="date" required
+                placeholder="Seleccione la fecha y hora de ingreso del bus" #date="ngModel">
+            <div class="alert alert-danger" *ngIf="date.invalid && (date.dirty || date.touched)">
+                <div *ngIf="busPlate.errors?.['required']">Seleccione la fecha y hora</div>
+            </div>
+        </div>
+        <br>
+
+        <button class="btn btn-success" [disabled]="!employeeForm.form.valid">Guardar</button>
+    </form>
+</div>
+  
+
+  
