@@ -14,7 +14,7 @@ buses.get('/:busPlate', (req, res) => {
     //validar datos
     var busFound= busServices.getBusBybusPlate(busPlate);
     if(!busFound){
-        res.status(400).json({error : 'El bus no existe',
+        res.status(400).json({error : `El bus con placa ${busPlate} no existe`,
             successful : false
         });
         return;
@@ -52,7 +52,7 @@ buses.post('/', (req, res) => {
 
     // Verificar si el bus ya existe
     if (busServices.existBus(busPlate)) {
-         res.status(400).json({ message: 'The bus already exists', 
+         res.status(400).json({ message: `El bus con placa ${busPlate} ya existe`, 
             successful : false
          });
          return;
@@ -68,10 +68,8 @@ buses.post('/', (req, res) => {
   
     //devolver
     res.status(200).json({
-        busPlate: busPlate,
-        arriveDateTime: arriveDateTime,
-        editedTimes: 0
-
+      message : `El bus con placa: ${busPlate} Creado con Exito`,
+      successful : true
     });
 
 });
@@ -83,7 +81,7 @@ buses.patch('/:busPlate', (req, res) => {
     //validar datos
     let exist = busServices.existBus(busPlate);
     if(!exist) {
-        res.status(404).json({ message: 'El bus no existe' });
+        res.status(404).json({ message: `El bus con placa ${busPlate} no existe` });
         return;
     }
 
@@ -100,9 +98,8 @@ buses.patch('/:busPlate', (req, res) => {
     var busEditedTimesFound = busFound.editedTimes;
     //devolver
     res.status(200).json({
-        busPlate: busPlateFound,
-        arriveDateTime: busArriveFound,
-        editedTimes: busEditedTimesFound
+       message : `El bus  con placa ${busPlate} se ha actualizado con exito`,
+       successful : true
     });
 });
 
