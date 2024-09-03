@@ -6,24 +6,30 @@ const buses = express();
 buses.get('/:busPlate', (req, res) => {
     const { busPlate } = req.params;
     if(!busPlate){
-        res.status(400).json({error : 'No se Admiten valores vacios'});
-    }
-    
-    var busFound= busServices.getBusBybusPlate(busPlate);
-    if(!busFound){
-        res.status(400).json({error : 'El bus no existe'});
+        res.status(400).json({error : 'No se Admiten valores vacios',
+            successful : false
+        });
         return;
     }
-    
+    var busFound= busServices.getBusBybusPlate(busPlate);
+    if(!busFound){
+        res.status(400).json({message : `El bus con placa ${busPlate} no existe`,
+            successful : false
+        });
+        return;
+    }
     var busPlateFound = busFound.busPlate;
     var busArriveFound = busFound.arriveDateTime;
     var busEditedTimesFound = busFound.editedTimes;
-    
     res.status(200).json({
+        message : `El bus con placa ${busPlate} no existe`,
+            successful : false,
+            bus:{
         busPlate: busPlateFound,
         arriveDateTime: busArriveFound,
         editedTimes: busEditedTimesFound
-    });
+        
+    }});
 });
 
 buses.get('/', (req, res) => {
@@ -36,12 +42,16 @@ buses.post('/', (req, res) => {
     const { busPlate, arriveDateTime } = req.body;
 
     if (!busPlate || !arriveDateTime) {
-         res.status(400).json({ message: 'Placa y fecha de llegada son requeridos' });
+         res.status(400).json({ message: 'Se necesita la placa y el tiempo de llegada',
+            successful : false
+          });
          return;
     }
 
     if (busServices.existBus(busPlate)) {
-         res.status(400).json({ message: 'El bus ya existe' });
+         res.status(400).json({ message: `El bus con placa ${busPlate} ya existe`, 
+            successful : false
+         });
          return;
     }
 
@@ -53,13 +63,10 @@ buses.post('/', (req, res) => {
     busServices.saveBus(newBus);
   
     res.status(200).json({
-        message: 'Bus creado',
-        successful: true,
-        bus: {
-        busPlate: busPlate,
-        arriveDateTime: arriveDateTime,
-        editedTimes: 0
-    }});
+      message : `El bus con placa: ${busPlate} Creado con Exito`,
+      successful : true
+    });
+
 });
 
 buses.patch('/:busPlate', (req, res) => {
@@ -68,7 +75,7 @@ buses.patch('/:busPlate', (req, res) => {
 
     let exist = busServices.existBus(busPlate);
     if(!exist) {
-        res.status(404).json({ message: 'El bus no existe' });
+        res.status(404).json({ message: `El bus con placa ${busPlate} no existe` });
         return;
     }
 
@@ -77,20 +84,14 @@ buses.patch('/:busPlate', (req, res) => {
         arriveDateTime
     };
     busServices.updateBus(newBus);
-    
     const busFound = busServices.getBusBybusPlate(busPlate);
     var busPlateFound = busFound.busPlate;
     var busArriveFound = busFound.arriveDateTime;
     var busEditedTimesFound = busFound.editedTimes;
-    
     res.status(200).json({
-        message: 'Bus actualizado',
-        successful: true,
-        bus: {
-        busPlate: busPlateFound,
-        arriveDateTime: busArriveFound,
-        editedTimes: busEditedTimesFound
-    }});
+       message : `El bus  con placa ${busPlate} se ha actualizado con exito`,
+       successful : true
+    });
 });
 
 buses.delete('/:busPlate', (req, res) => {
@@ -98,14 +99,15 @@ buses.delete('/:busPlate', (req, res) => {
 
     let exist = busServices.existBus(busPlate);
     if(!exist) {
-        res.status(404).json({ message: 'El bus no existe' });
+        res.status(404).json({ message: 'El bus no existe', 
+            successful : false
+        });
         return;
     }
-    
+
     busServices.deleteBus(busPlate);
-    
     res.status(200).json({
-        message : `Bus ${busPlate} deleted`,
+        message : `El bus con placa:  ${busPlate} ha sido eliminado`,
         successful : true
     });
 });
